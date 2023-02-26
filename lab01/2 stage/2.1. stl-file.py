@@ -5,11 +5,11 @@ import sys
 
 gmsh.initialize()
 
-filename = '2. canon'
+filename = '2. griffin.stl'
 path = os.path.dirname(os.path.abspath(__file__))
-gmsh.merge(os.path.join(path, f'{filename}.STL'))
+gmsh.merge(os.path.join(path, f'{filename}'))
 
-angle = 40
+angle = 10
 forceParametrizablePatches = False
 includeBoundary = True
 curveAngle = 180
@@ -28,10 +28,7 @@ gmsh.model.geo.synchronize()
 # We specify element sizes imposed by a size field, just because we can :-)
 funny = False
 f = gmsh.model.mesh.field.add("MathEval")
-if funny:
-    gmsh.model.mesh.field.setString(f, "F", "2*Sin((x+y)/5) + 3")
-else:
-    gmsh.model.mesh.field.setString(f, "F", "4")
+gmsh.model.mesh.field.setString(f, "F", "0.1")
 gmsh.model.mesh.field.setAsBackgroundMesh(f)
 
 gmsh.model.mesh.generate(3)
